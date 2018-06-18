@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  ubuntu:
+    image: ubuntu:16.04
+    tty: true
+    volumes:
+      - nfs:/myvol
+    deploy:
+      replicas: 2
+
+  centos:
+    image: centos
+    tty: true
+    volumes:
+      - nfs:/myvol
+    deploy:
+      replicas: 2
+
+volumes:
+  nfs:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.33.10,rw,soft,nolock"
+      device: ":/home"
+
